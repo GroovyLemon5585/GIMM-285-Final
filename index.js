@@ -705,6 +705,6 @@ app.put('/cars/:id', updateCarHandler);
 // Legacy route kept to avoid breaking existing pages
 app.put('/car_attributes/update/:id', updateCarHandler);
 
-app.listen(port, () => {
-    console.log(`Application listening at http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Application listening on 0.0.0.0:${port}`);
 })
