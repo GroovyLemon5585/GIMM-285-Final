@@ -2,6 +2,8 @@
 const express = require('express');
 const multer = require('multer');
 const mysql = require('mysql2/promise');
+const fs = require('fs');
+const path = require('path');
 
 //Setup defaults for script
 const app = express();
@@ -11,6 +13,43 @@ app.use(express.json());
 const upload = multer()
 const port = process.env.PORT || 80 //Render injects PORT; fall back to 80 locally
 
+let databaseSeeded = false;
+
+async function tableExists(tableName) {
+    const [rows] = await connection.query('SHOW TABLES LIKE ?', [tableName]);
+    return rows.length > 0;
+}
+
+// Strips comments/directives from a phpMyAdmin dump and splits it into runnable statements
+function parseSqlStatements(sql) {
+    return sql
+        .split('\n')
+        .filter(line => !line.trim().startsWith('--'))
+        .join('\n')
+        .split(';')
+        .map(statement => statement.trim())
+        .filter(statement => statement.length > 0 && !/^\/\*/.test(statement) && !/^(START TRANSACTION|SET|COMMIT)\b/i.test(statement));
+}
+
+async function seedTableFromSqlFile(tableName, fileName) {
+    if (await tableExists(tableName)) {
+        return;
+    }
+    const sql = fs.readFileSync(path.join(__dirname, 'sql', fileName), 'utf8');
+    for (const statement of parseSqlStatements(sql)) {
+        await connection.query(statement);
+    }
+}
+
+// Auto-creates and populates the car tables from the bundled SQL dumps on a fresh database
+async function ensureDatabaseSeeded() {
+    if (databaseSeeded) {
+        return;
+    }
+    await seedTableFromSqlFile('car_attributes', 'car_attributes.sql');
+    await seedTableFromSqlFile('car_selection', 'car_selection.sql');
+    databaseSeeded = true;
+}
 let connection = null;
 let foreignKeyChecked = false;
 
@@ -63,6 +102,7 @@ async function ensureConnection() {
     }
 
     if (!foreignKeyChecked) {
+        await ensureDatabaseSeeded();
         await ensureCarSelectionForeignKey();
         foreignKeyChecked = true;
     }
