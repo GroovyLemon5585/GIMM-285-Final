@@ -236,7 +236,7 @@
             setTimeout(() => {
                 hideLoadingOverlay();
                 //Send FETCH API request
-                fetch("http://localhost/cars" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''), fetchSettings)
+                fetch("/cars" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''), fetchSettings)
                     .then((response) => {
                         return new Promise((resolve) => response.json()
                             .then((json) => resolve({
