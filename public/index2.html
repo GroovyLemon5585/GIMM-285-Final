@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Car Insert Form</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	<link href="carform.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+
+<body class="page-insert">
+	<div class="container pt-3">
+		<div class="d-flex flex-wrap gap-2 mb-3">
+			<a href="index.html" class="btn btn-primary">Search Page</a>
+			<a href="index3.html" class="btn btn-primary">Edit Info</a>
+		</div>
+	</div>
+
+	<h1>Insert Form</h1>
+
+	<hr />
+
+	<div class="container py-4">
+
+		<form id='car_insert_form'>
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='car_brand' class='form-label'>Car Brand</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='text' id='car_brand' name='car_brand' class='form-control' placeholder='Ford'>
+					<div id='car_brand_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='model_name' class='form-label'>Car Model</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='text' id='model_name' name='model_name' class='form-control' placeholder='Mustang'>
+					<div id='model_name_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='horsepower' class='form-label'>Horsepower</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='number' id='horsepower' name='horsepower' class='form-control' placeholder='480'>
+					<div id='horsepower_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='lowest_gas_mileage' class='form-label'>Lowest Gas Mileage</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='number' id='lowest_gas_mileage' name='lowest_gas_mileage' class='form-control' placeholder='20'>
+					<div id='lowest_gas_mileage_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='highest_gas_mileage' class='form-label'>Highest Gas Mileage</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='number' id='highest_gas_mileage' name='highest_gas_mileage' class='form-control' placeholder='30'>
+					<div id='highest_gas_mileage_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='year_released' class='form-label'>Year Released</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='number' id='year_released' name='year_released' class='form-control' placeholder='2024'>
+					<div id='year_released_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='lowest_price' class='form-label'>Lowest Price</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='number' id='lowest_price' name='lowest_price' class='form-control' placeholder='50000'>
+					<div id='lowest_price_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-2'>
+					<label for='highest_price' class='form-label'>Highest Price</label>
+				</div>
+				<div class='col-md-10'>
+					<input type='number' id='highest_price' name='highest_price' class='form-control' placeholder='70000'>
+					<div id='highest_price_error' class='text-danger small mt-1'></div>
+				</div>
+			</div>
+
+			<div class='row mb-3'>
+				<div class='col-md-12'>
+					<button type='button' id='insert_car' class='btn btn-primary'>Insert Car</button>
+				</div>
+			</div>
+
+			<div class='row'>
+				<div class='col-md-12'>
+					<div id='insert_result' class='mt-2'></div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script>
+		const getLoadingOverlay = () => {
+			let overlay = document.getElementById('loading_overlay');
+			if (!overlay) {
+				overlay = document.createElement('div');
+				overlay.id = 'loading_overlay';
+				overlay.className = 'loading-overlay hidden';
+				overlay.innerHTML =
+					'<div class="tire-spinner-wrap">' +
+						'<div class="tire-spinner" aria-hidden="true"></div>' +
+						'<div class="tire-spinner-label">Preparing request...</div>' +
+					'</div>';
+				document.body.appendChild(overlay);
+			}
+			return overlay;
+		};
+
+		const showLoadingOverlay = () => {
+			getLoadingOverlay().classList.remove('hidden');
+		};
+
+		const hideLoadingOverlay = () => {
+			const overlay = document.getElementById('loading_overlay');
+			if (overlay) {
+				overlay.classList.add('hidden');
+			}
+		};
+
+		const hasErrors = (json) => {
+			if (!json || typeof json.errors === 'undefined' || json.errors === null) {
+				return false;
+			}
+			if (Array.isArray(json.errors)) {
+				return json.errors.length > 0;
+			}
+			if (typeof json.errors === 'object') {
+				return Object.keys(json.errors).length > 0;
+			}
+			return Boolean(json.errors);
+		};
+
+		const createFieldIds = ['car_brand', 'model_name', 'horsepower', 'lowest_gas_mileage', 'highest_gas_mileage', 'year_released', 'lowest_price', 'highest_price'];
+
+		const clearFieldErrors = () => {
+			for (const fieldId of createFieldIds) {
+				const errorEl = document.getElementById(fieldId + '_error');
+				const fieldEl = document.getElementById(fieldId);
+				if (errorEl) {
+					errorEl.textContent = '';
+				}
+				if (fieldEl) {
+					fieldEl.classList.remove('is-invalid');
+				}
+			}
+		};
+
+		const renderFieldErrors = (errors) => {
+			if (!errors || typeof errors !== 'object') {
+				return;
+			}
+			for (const [fieldName, message] of Object.entries(errors)) {
+				const errorEl = document.getElementById(fieldName + '_error');
+				const fieldEl = document.getElementById(fieldName);
+				if (errorEl) {
+					errorEl.textContent = message;
+				}
+				if (fieldEl) {
+					fieldEl.classList.add('is-invalid');
+				}
+			}
+		};
+
+		document.getElementById('insert_car').addEventListener('click', async () => {
+			clearFieldErrors();
+			document.getElementById('insert_result').innerHTML = '';
+
+			const payload = {
+				car_brand: document.getElementById('car_brand').value.trim(),
+				model_name: document.getElementById('model_name').value.trim(),
+				horsepower: document.getElementById('horsepower').value.trim(),
+				lowest_gas_mileage: document.getElementById('lowest_gas_mileage').value.trim(),
+				highest_gas_mileage: document.getElementById('highest_gas_mileage').value.trim(),
+				year_released: document.getElementById('year_released').value.trim(),
+				lowest_price: document.getElementById('lowest_price').value.trim(),
+				highest_price: document.getElementById('highest_price').value.trim()
+			};
+
+			const clientErrors = {};
+			const lowestMpg = Number(payload.lowest_gas_mileage);
+			const highestMpg = Number(payload.highest_gas_mileage);
+			const lowestPrice = Number(payload.lowest_price);
+			const highestPrice = Number(payload.highest_price);
+
+			if (!payload.lowest_gas_mileage) {
+				clientErrors.lowest_gas_mileage = 'Lowest gas mileage is required.';
+			}
+			if (!payload.highest_gas_mileage) {
+				clientErrors.highest_gas_mileage = 'Highest gas mileage is required.';
+			}
+			if (payload.lowest_gas_mileage && Number.isNaN(lowestMpg)) {
+				clientErrors.lowest_gas_mileage = 'Lowest gas mileage must be numeric.';
+			}
+			if (payload.highest_gas_mileage && Number.isNaN(highestMpg)) {
+				clientErrors.highest_gas_mileage = 'Highest gas mileage must be numeric.';
+			}
+			if (!Number.isNaN(lowestMpg) && !Number.isNaN(highestMpg) && lowestMpg > highestMpg) {
+				clientErrors.lowest_gas_mileage = 'Lowest gas mileage cannot be greater than highest gas mileage.';
+				clientErrors.highest_gas_mileage = 'Highest gas mileage must be greater than or equal to lowest gas mileage.';
+			}
+
+			if (!payload.lowest_price) {
+				clientErrors.lowest_price = 'Lowest price is required.';
+			}
+			if (!payload.highest_price) {
+				clientErrors.highest_price = 'Highest price is required.';
+			}
+			if (payload.lowest_price && Number.isNaN(lowestPrice)) {
+				clientErrors.lowest_price = 'Lowest price must be numeric.';
+			}
+			if (payload.highest_price && Number.isNaN(highestPrice)) {
+				clientErrors.highest_price = 'Highest price must be numeric.';
+			}
+			if (!Number.isNaN(lowestPrice) && !Number.isNaN(highestPrice) && lowestPrice > highestPrice) {
+				clientErrors.lowest_price = 'Lowest price cannot be greater than highest price.';
+				clientErrors.highest_price = 'Highest price must be greater than or equal to lowest price.';
+			}
+
+			if (Object.keys(clientErrors).length > 0) {
+				renderFieldErrors(clientErrors);
+				document.getElementById('insert_result').innerHTML = '<div class="alert alert-danger">Please correct the highlighted fields.</div>';
+				return;
+			}
+
+			showLoadingOverlay();
+			await new Promise((resolve) => setTimeout(resolve, 5000));
+			hideLoadingOverlay();
+
+			try {
+				const response = await fetch('/cars', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(payload)
+				});
+
+				const json = await response.json();
+				if (response.status === 200 && !hasErrors(json)) {
+					document.getElementById('insert_result').innerHTML = '<div class="alert alert-success">' + json.message + '</div>';
+					document.getElementById('car_insert_form').reset();
+				} else {
+					renderFieldErrors(json.errors);
+					const errorMessage = hasErrors(json)
+						? (json.message || 'Please correct the highlighted fields.')
+						: json.message;
+					document.getElementById('insert_result').innerHTML = '<div class="alert alert-danger">' + (errorMessage || 'Insert failed.') + '</div>';
+				}
+			} catch (error) {
+				document.getElementById('insert_result').innerHTML = '<div class="alert alert-danger">Could not connect to server.</div>';
+			}
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Car Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="carform.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+
+<body class="page-search">
+    <div class="container pt-3">
+        <a href="index2.html" class="btn btn-success">Submit Info</a>
+        <a href="index3.html" class="btn btn-warning ms-2">Edit Info</a>
+    </div>
+
+    <h1>Car Finder Form</h1>
+
+    <hr />
+
+    <div class="container">
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Car Brand</label>
+            </div>
+            <div class='col-md-10'>
+                <input type='text' id='car_brand' class='form-control' placeholder='Brand name (example: Ford)'>
+            </div>
+        </div>
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Car Model</label>
+            </div>
+            <div class='col-md-10'>
+                <input type='text' id='model_name' class='form-control' placeholder='Model name (example: Mustang)'>
+            </div>
+        </div>
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Horsepower</label>
+            </div>
+            <div class='col-md-10'>
+                <select id='horsepower'>
+                    <option value=''></option>
+                    <option value='100-200'>100-200</option>
+                    <option value='200-300'>200-300</option>
+                    <option value='300-400'>300-400</option>
+                    <option value='400-500'>400-500</option>
+                    <option value='500-600'>500-600</option>
+                    <option value='600-700'>600-700</option>
+                    <option value='700-800'>700-800</option>
+                    <option value='800-900'>800-900</option>
+                    <option value='900-1000'>900-1000</option>
+                    <option value='1000-2000'>1000-2000</option>
+                </select>
+            </div>
+        </div>
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Lowest Gas Mileage</label>
+            </div>
+            <div class='col-md-10'>
+                <select id='lowest_gas_mileage'>
+                    <option value=''></option>
+                    <option value='0'>0</option>
+                    <option value='10'>10</option>
+                    <option value='20'>20</option>
+                    <option value='30'>30</option>
+                    <option value='40'>40</option>
+                </select>
+            </div>
+        </div>
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Highest Gas Mileage</label>
+            </div>
+            <div class='col-md-10'>
+                <select id='highest_gas_mileage'>
+                    <option value=''></option>
+                    <option value='0'>0</option>
+                    <option value='20'>20</option>
+                    <option value='30'>30</option>
+                    <option value='40'>40</option>
+                    <option value='50'>50</option>
+                </select>
+            </div>
+        </div>
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Year Released</label>
+            </div>
+            <div class='col-md-10'>
+                <select id='year_released'>
+                    <option value=''></option>
+                    <option value='2020-2026'>2020-2026</option>
+                    <option value='2010-2020'>2010-2020</option>
+                    <option value='2000-2010'>2000-2010</option>
+                    <option value='1990-2000'>1990-2000</option>
+                    <option value='1980-1990'>1980-1990</option>
+                    <option value='1970-1980'>1970-1980</option>
+                    <option value='1960-1970'>1960-1970</option>
+                    <option value='1950-1960'>1950-1960</option>
+                    <option value='1940-1950'>1940-1950</option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Price</label>
+            </div>
+            <div class='col-md-10'>
+                <select id='price'>
+                    <option value=''></option>
+                    <option value='1000-10000'>1000-10000</option>
+                    <option value='10000-50000'>10000-50000</option>
+                    <option value='50000-100000'>50000-100000</option>
+                    <option value='150000-200000'>150000-200000</option>
+                    <option value='200000-250000'>200000-250000</option>
+                    <option value='250000-300000'>250000-300000</option>
+                    <option value='300000-350000'>300000-350000</option>
+                    <option value='350000-400000'>350000-400000</option>
+                    <option value='400000-450000'>400000-450000</option>
+                    <option value='450000-500000'>450000-500000</option>
+                    <option value='500000-1000000'>500000-1000000</option>
+                    <option value='1000000-1500000'>1000000-1500000</option>
+                    <option value='1500000-2000000'>1500000-2000000</option>
+                    <option value='2000000-2500000'>2000000-2500000</option>
+                    <option value='2500000-3000000'>2500000-3000000</option>
+                </select>
+            </div>
+        </div>
+
+        <div class='row mb-3'>
+            <div class='col-md-2'>
+                <label>Limit</label>
+            </div>
+            <div class='col-md-10'>
+                <select id='limit'>
+                    <option value=''></option>
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                    <option value='100'>100</option>
+                    
+                </select>
+            </div>
+        </div>
+        <div class='row mb-3 search-action-row'>
+            <div class='col-md-12'>
+                <button id='search' class="btn btn-primary">Search</button>
+            </div>
+        </div>
+
+    </div>
+
+    <hr />
+
+    <div id='classes' class='overflow'>
+       
+    </div>
+
+    <script>
+        const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+        const getLoadingOverlay = () => {
+            let overlay = document.getElementById('loading_overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'loading_overlay';
+                overlay.className = 'loading-overlay hidden';
+                overlay.innerHTML =
+                    '<div class="tire-spinner-wrap">' +
+                        '<div class="tire-spinner" aria-hidden="true"></div>' +
+                        '<div class="tire-spinner-label">Preparing request...</div>' +
+                    '</div>';
+                document.body.appendChild(overlay);
+            }
+            return overlay;
+        };
+
+        const showLoadingOverlay = () => {
+            getLoadingOverlay().classList.remove('hidden');
+        };
+
+        const hideLoadingOverlay = () => {
+            const overlay = document.getElementById('loading_overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
+        };
+
+        document.getElementById('search').addEventListener('click', (event) => {
+            const getParameters = {};
+
+            if (document.getElementById('car_brand').value.trim().length !== 0) {
+                getParameters.car_brand = document.getElementById('car_brand').value.trim();
+            }
+            if (document.getElementById('model_name').value.length !== 0) {
+                getParameters.model_name = document.getElementById('model_name').value;
+            }
+            if (document.getElementById('horsepower').value.length !== 0) {
+                getParameters.horsepower = document.getElementById('horsepower').value;
+            }
+            if (document.getElementById('lowest_gas_mileage').value.length !== 0) {
+                getParameters.lowest_gas_mileage = document.getElementById('lowest_gas_mileage').value;
+            }
+            if (document.getElementById('highest_gas_mileage').value.length !== 0) {
+                getParameters.highest_gas_mileage = document.getElementById('highest_gas_mileage').value;
+            }
+            if (document.getElementById('year_released').value.length !== 0) {
+                getParameters.year_released = document.getElementById('year_released').value;
+            }
+            if (document.getElementById('price').value.length !== 0) {
+                getParameters.price = document.getElementById('price').value;
+            }
+            if (document.getElementById('limit').value.length !== 0) {
+                getParameters.limit = document.getElementById('limit').value;
+            }
+
+            //Settings for FETCH API request
+            let fetchSettings = {
+                method: 'GET'
+            };
+
+            //Wait 5 seconds before sending the request
+            showLoadingOverlay();
+            setTimeout(() => {
+                hideLoadingOverlay();
+                //Send FETCH API request
+                fetch("http://localhost/cars" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''), fetchSettings)
+                    .then((response) => {
+                        return new Promise((resolve) => response.json()
+                            .then((json) => resolve({
+                                status: response.status,
+                                json,
+                            })
+                        ));
+                    })
+                    //Logic to display errors on form 
+                    .then(({ status, json }) => {
+                        if (status === 200) {
+                            let displayTable = '<table class="table table-sm table-striped results-table">' +
+                                    '<thead>' +
+                                        '<tr>' +
+                                            '<th>Make</th>' +
+                                            '<th>Model</th>' +
+                                            '<th>Horsepower</th>' +
+                                            '<th>Lowest Gas Mileage</th>' +
+                                            '<th>Highest Gas Mileage</th>' +
+                                            '<th>Year Released</th>' +
+                                            '<th>Price Range</th>' +
+                                        '</tr>' +
+                                    '</thead>' +
+                                '<tbody>';
+                            if (typeof json.data !== 'undefined') {
+                                for (row of json.data) {
+                                    displayTable += '<tr>' +
+                                            '<td>' + row.car_brand + '</td>' +
+                                            '<td>' + row.model_name + '</td>' +
+                                            '<td>' + row.horsepower + '</td>' +
+                                            '<td>' + row.lowest_gas_mileage + '</td>' +
+                                            '<td>' + row.highest_gas_mileage + '</td>' +
+                                            '<td>' + row.year_released + '</td>' +
+                                            '<td>' + row.lowest_price + '-' + row.highest_price + '</td>' +
+                                        '</tr>';
+                                }
+                            }
+                            displayTable += '</tbody></table>';
+                            document.getElementById('classes').innerHTML = displayTable;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }, 5000);
+        });               
+    </script>
+</body>
+
+</html>
