@@ -11,7 +11,7 @@ app.use(express.static('public'))
 app.use(express.json());
 
 const upload = multer()
-const port = process.env.PORT || 8080 //Render injects PORT; use 8080 otherwise
+const port = process.env.PORT || 3000 //Render injects PORT; use 8080 otherwise
 
 let databaseSeeded = false;
 
