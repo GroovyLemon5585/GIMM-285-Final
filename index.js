@@ -9,7 +9,7 @@ app.use(express.static('public'))
 app.use(express.json());
 
 const upload = multer()
-const port = 80 //Default port to http server
+const port = process.env.PORT || 80 //Render injects PORT; fall back to 80 locally
 
 let connection = null;
 let foreignKeyChecked = false;
@@ -55,10 +55,10 @@ async function ensureConnection() {
     if (null === connection) {
         console.log('Here');
         connection = await mysql.createConnection({
-            host: "student-databases.cvode4s4cwrc.us-west-2.rds.amazonaws.com",
-            user: "HUNTERANDERSON753",
-            password: "o1o33pQI5sIUOu6BaFVRTID42AEXBD1ohg2",
-            database: 'HUNTERANDERSON753'
+            host: process.env.DB_HOST || "student-databases.cvode4s4cwrc.us-west-2.rds.amazonaws.com",
+            user: process.env.DB_USER || "HUNTERANDERSON753",
+            password: process.env.DB_PASSWORD || "o1o33pQI5sIUOu6BaFVRTID42AEXBD1ohg2",
+            database: process.env.DB_NAME || 'HUNTERANDERSON753'
         });
     }
 
